@@ -5,6 +5,9 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+env:
+  UV_SYSTEM_PYTHON: 1
+
 jobs:
   build:
     runs-on: ubuntu-latest
