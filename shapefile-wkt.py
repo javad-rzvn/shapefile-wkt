@@ -19,25 +19,33 @@ def _(mo):
 
 
 @app.cell
-def _(shapefiles):
-    shapefiles.value
+def _(gpd, shapefiles):
+    shapefile_df = {}
+    if len(shapefiles.value) > 0:
+        print(shapefiles.value)
+        for item in shapefiles.value:
+            df = gpd.read_file(item.contents)
+            shapefile_df.update({item.name: df})
+
+    return df, item, shapefile_df
+
+
+@app.cell
+def _(shapefile_df):
+    len(shapefile_df)
     return
 
 
 @app.cell
-def _():
-    # shapefile_df = {}
-    # for item in shapefiles.value:
-    #     df = gpd.read_file(item.contents)
-    #     shapefile_df.update({item.name: df})
-    return
+def _(mo, shapefile_df, shapefiles):
+    a = True
+    if len(shapefiles.value) > 0:
+        preview_tabs = {file_name:mo.ui.table(file_content, page_size=5) for file_name, file_content in shapefile_df.items()}
+    else:
+        preview_tabs = {"Error": "Empty"}
 
-
-@app.cell
-def _():
-    # preview_tabs = {file_name:mo.ui.table(file_content, page_size=5) for file_name, file_content in shapefile_df.items()}
-    # mo.ui.tabs(preview_tabs)
-    return
+    mo.ui.tabs(preview_tabs)
+    return a, preview_tabs
 
 
 @app.cell
