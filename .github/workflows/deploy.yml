@@ -29,7 +29,7 @@ jobs:
 
       - name: 📄 Export notebook
         run: |
-          marimo export html-wasm shaepfile-wkt.py -o _site --mode run
+          marimo export html-wasm shapefile-wkt.py -o _site --mode run
 
       - name: 📦 Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
